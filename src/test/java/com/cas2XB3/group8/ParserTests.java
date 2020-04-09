@@ -1,16 +1,16 @@
-package com.cas2XB3.group8;
-
-import static org.junit.Assert.*;
-
-import java.io.FileNotFoundException;
-import java.util.Map;
-
-import org.json.simple.parser.ParseException;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
-public class ParserTests {
+//package com.cas2XB3.group8;
+//
+//import static org.junit.Assert.*;
+//
+//import java.io.FileNotFoundException;
+//import java.util.Map;
+//
+//import org.json.simple.parser.ParseException;
+//import org.junit.AfterClass;
+//import org.junit.BeforeClass;
+//import org.junit.Test;
+//
+//public class ParserTests {
 	
 //	private static Map<Integer,Coordinates> coords;
 //	private static Coordinates a;
@@ -48,4 +48,4 @@ public class ParserTests {
 //		assertTrue(-87.398204 == a.getY());
 //	}
 
-}
+//}

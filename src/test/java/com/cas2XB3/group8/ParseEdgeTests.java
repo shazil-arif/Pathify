@@ -1,11 +1,11 @@
-package com.cas2XB3.group8;
-
-import static org.junit.Assert.*;
-import java.io.IOException;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
-public class ParseEdgeTests {
+//package com.cas2XB3.group8;
+//
+//import static org.junit.Assert.*;
+//import java.io.IOException;
+//import org.junit.BeforeClass;
+//import org.junit.Test;
+//
+//public class ParseEdgeTests {
 	
 //	@BeforeClass
 //	public static void setUpBeforeClass() {
@@ -21,4 +21,4 @@ public class ParseEdgeTests {
 //		assertEquals(2712798, ParseEdge.getLineCount());
 //	}
 
-}
+//}
