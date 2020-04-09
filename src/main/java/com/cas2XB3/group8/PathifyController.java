@@ -13,6 +13,7 @@ import javax.annotation.PostConstruct;
 
 import org.json.simple.parser.ParseException;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,7 +28,7 @@ public class PathifyController {
 	
 	@PostConstruct
     public void init() throws FileNotFoundException, IOException, ParseException {
-		g = Parser.getGraph();
+		Parser.getLookup();
 
     }
 	
@@ -40,6 +41,12 @@ public class PathifyController {
 	@GetMapping("/test")
 	public String tester() {
 		return "Pathify Test";
+	}
+	
+	@GetMapping("/load")
+	public String load() throws FileNotFoundException, IOException, ParseException {
+		g = Parser.getGraph();
+		return "Loaded Successfully";
 	}
 	
 	/**
@@ -55,6 +62,7 @@ public class PathifyController {
 	 * @param coords
 	 * @return
 	 */
+	@CrossOrigin
 	@PostMapping("/test")
 	public ArrayList<Map<String,Double>> testPost(@RequestBody Map<String,Double>[] payload) {
 		ArrayList<Map<String,Double>> response = new ArrayList<Map<String,Double>>();

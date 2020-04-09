@@ -52,7 +52,6 @@ public class Parser {
 //    }
 
 	public static WeightedDiGraph getGraph() throws FileNotFoundException, IOException, org.json.simple.parser.ParseException {
-        getLookup();
         WeightedDiGraph g = new WeightedDiGraph();
 	    try {
 	        FileReader fileReader = new FileReader("data/edge.json");
@@ -87,7 +86,7 @@ public class Parser {
 	    return g;
 	}
 	
-	private static void getLookup() throws FileNotFoundException, org.json.simple.parser.ParseException {
+	public static void getLookup() throws FileNotFoundException, org.json.simple.parser.ParseException {
 		FileReader fileReader = new FileReader("data/coord.json");
         BufferedReader reader = new BufferedReader(fileReader);
         JSONObject temp;

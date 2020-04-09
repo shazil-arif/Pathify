@@ -29,7 +29,7 @@ public class Coordinates {
         double lat_one = Math.toRadians(this.xVal);
         double lat_two = Math.toRadians(other.xVal);
 
-        double long_diff = Math.toRadians(other.getY() - other.getY());
+        double long_diff = Math.toRadians(this.getY() - other.getY());
 
         double distance = Math.acos(Math.sin(lat_one)*Math.sin(lat_two) + Math.cos(lat_one)*Math.cos(lat_two)*Math.cos(long_diff)) * radius;
 
