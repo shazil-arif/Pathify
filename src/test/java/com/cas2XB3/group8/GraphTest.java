@@ -8,8 +8,7 @@ class GraphTest {
 
 	@Test
 	void test() {
-		DataController d = new DataController();
-		d.viewGraph();
+	
 	}
 
 }
