@@ -1,12 +1,12 @@
 package com.cas2XB3.group8;
 
 public class Edge implements Comparable<Edge>{
-	Node<Integer> src;
-	Node<Integer> dest;
+	int src;
+	int dest;
 	double weight;
 	int time;
 	
-	public Edge(Node<Integer> source, Node<Integer> destination, double weight, int time) {
+	public Edge(int source, int destination, double weight, int time) {
 		this.src = source;
 		this.dest = destination;
 		this.weight = weight;
@@ -17,15 +17,15 @@ public class Edge implements Comparable<Edge>{
 		return weight;
 	}
 	
-	public Node<Integer> from() {
+	public int from() {
 		return src;
 	}
 	
-	public Node<Integer> to(){
+	public int  to(){
 		return dest;
 	}
 	
-	public void set(Node<Integer> source, Node<Integer> destination, double weight, int time) {
+	public void set(int source, int destination, double weight, int time) {
 		this.src = source;
 		this.dest = destination;
 		this.weight = weight;

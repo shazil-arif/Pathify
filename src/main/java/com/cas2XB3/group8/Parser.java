@@ -58,7 +58,7 @@ public class Parser {
 		    JSONObject obj;
 		    Node<Integer> from = new Node<Integer>(0);
 		    Node<Integer> to = new Node<Integer>(0);
-		    Edge e = new Edge(from,to,0,0);
+		    Edge e = new Edge(0,0,0,0);
 		    reader.readLine();
 	        for(String line = reader.readLine(); line != null; line = reader.readLine()) {
 	        	if(!line.equals("]")) {
@@ -74,10 +74,10 @@ public class Parser {
 		            to.set(to_key);
 		            
 		            double dist = Double.parseDouble((String)obj.get("distance"));
-		            e.set(from,to, dist,0);
+		            e = new Edge(from_key,to_key, dist,0);
 		            
 		            if(!g.containsNode(from)) {
-		            	g.addNode(from,lookup.get(from_key));
+		            	g.addNode(from_key,lookup.get(from_key));
 		            }
 		            g.addEdge(e);	
 		            //System.gc(); //call garbage collector

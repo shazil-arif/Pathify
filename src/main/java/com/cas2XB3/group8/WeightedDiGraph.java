@@ -20,9 +20,8 @@ public class WeightedDiGraph{
 	
 	//add an edge in the graph
 	public void addEdge(Edge e) {
-		if(!containsNode(e.from())) throw new IllegalArgumentException("The node the edge comes from does not exist");
-		Node<Integer> from = e.from();
-		adj.get(from.getVal()).addEdge(e);
+		if(!containsNode(new Node<Integer>(e.from()))) throw new IllegalArgumentException("The node the edge comes from does not exist");
+		adj.get(e.from()).addEdge(e);
 		num_edges++;
 	}
 	
@@ -35,9 +34,9 @@ public class WeightedDiGraph{
 	
 	
 	//add node
-	public void addNode(Node<Integer> v, Coordinates coord) {
+	public void addNode(int v, Coordinates coord) {
 		Pair p = new Pair(coord);
-		adj.put(v.getVal(), p);	
+		adj.put(v, p);	
 	}
 	
 	//get the adjacency list/ which is a list of edges for a give node

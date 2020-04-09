@@ -65,6 +65,7 @@ public class PathifyController {
 	@PostMapping("/path")
 	public ArrayList<Map<String,Double>> testPost(@RequestBody Map<String,Double>[] payload) {
 		ArrayList<Map<String,Double>> response = new ArrayList<Map<String,Double>>();
+		
 		for(int i = 1; i < payload.length; i++) { //first one is source, start from second
 			Coordinates source = new Coordinates(payload[i-1].get("lat"), payload[i-1].get("long"));
 			int src = g.getClosestNode(source).getVal();
@@ -80,7 +81,7 @@ public class PathifyController {
 			ArrayList<Edge> path = d.pathTo(dest);
 			for(Edge e : path) {
 				temp = new HashMap<String,Double>();
-				location = g.getNodeCoord(e.to());
+				location = g.getNodeCoord(new Node<Integer>(e.to()));
 				temp.put("lat",location.getX());
 				temp.put("long",location.getY());
 				response.add(temp);

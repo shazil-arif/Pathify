@@ -52,15 +52,15 @@ public class Dijkstra {
 		//Node<String> n = new Node<String>(map.get(node));
 		Node<Integer> n = new Node<Integer>(node);
 		for(Edge e : G.getEdgeList(n)) {
-			Node<Integer> to = e.to();
+			int to = e.to();
 			
-			if(distTo[to.getVal()] > distTo[node] + e.getWeight()) {
-				distTo[to.getVal()] = distTo[node] + e.getWeight();
-				edgeTo[to.getVal()] = e;
+			if(distTo[to] > distTo[node] + e.getWeight()) {
+				distTo[to] = distTo[node] + e.getWeight();
+				edgeTo[to] = e;
 				
 				//add remaining nodes to priority queue
-				if(pq.contains(to.getVal())) pq.changeKey(to.getVal(), distTo[to.getVal()]);
-				else pq.insert(to.getVal(), distTo[to.getVal()]);
+				if(pq.contains(to)) pq.changeKey(to, distTo[to]);
+				else pq.insert(to, distTo[to]);
 			}
 						
 			
@@ -81,7 +81,7 @@ public class Dijkstra {
 		Edge x = edgeTo[v];
 		while(x!=null) {
 			path.add(x);
-			x = edgeTo[x.from().getVal()];
+			x = edgeTo[x.from()];
 		}
 		Collections.reverse(path);
 		return path;
