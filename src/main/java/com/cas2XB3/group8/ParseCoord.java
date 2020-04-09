@@ -28,11 +28,7 @@ public class ParseCoord
         JSONObject jsonObject = new JSONObject();
         PrintStream fileStream = new PrintStream(jsonfile);
         fileStream.println("[");
-<<<<<<< HEAD
 		File data = new File("data/USA-road-d.COL.co");
-=======
-		File data = new File("data/USA-road-d.FLA.txt");
->>>>>>> c02ce01974eda1eef42fda193fd6a6d8372a4fb1
 		
 		try (BufferedReader br = new BufferedReader(new FileReader(data))) {
 			line_count = 0;

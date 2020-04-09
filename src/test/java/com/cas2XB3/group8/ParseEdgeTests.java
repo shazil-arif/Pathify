@@ -7,18 +7,18 @@ import org.junit.Test;
 
 public class ParseEdgeTests {
 	
-	@BeforeClass
-	public static void setUpBeforeClass() {
-		try {
-			ParseCoord.readCoord();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	@Test
-	public void testGetLineCount() {
-		assertEquals(2712798, ParseEdge.getLineCount());
-	}
+//	@BeforeClass
+//	public static void setUpBeforeClass() {
+//		try {
+//			ParseCoord.readCoord();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//	}
+//
+//	@Test
+//	public void testGetLineCount() {
+//		assertEquals(2712798, ParseEdge.getLineCount());
+//	}
 
 }
