@@ -54,9 +54,11 @@ public class Parser {
 	public static WeightedDiGraph getGraph() throws FileNotFoundException, IOException, org.json.simple.parser.ParseException {
         WeightedDiGraph g = new WeightedDiGraph();
 	    try {
-	        FileReader fileReader = new FileReader("data/edge.json");
-	        BufferedReader reader = new BufferedReader(fileReader);
+	        BufferedReader reader = new BufferedReader(new FileReader("data/edge.json"));
 		    JSONObject obj;
+		    Node<Integer> from = new Node<Integer>(0);
+		    Node<Integer> to = new Node<Integer>(0);
+		    Edge e = new Edge(from,to,0,0);
 		    reader.readLine();
 	        for(String line = reader.readLine(); line != null; line = reader.readLine()) {
 	        	if(!line.equals("]")) {
@@ -64,16 +66,21 @@ public class Parser {
 						line = line.substring(0,line.length()-1);
 					
 		            obj = (JSONObject) new JSONParser().parse(line);
+		            
 		            int from_key = Integer.parseInt((String)obj.get("id1"));
 		            int to_key = Integer.parseInt((String)obj.get("id2"));
-		            Node<Integer> from = new Node<Integer>(from_key);
-		            Node<Integer> to = new Node<Integer>(to_key);
+		            
+		            from.set(from_key);
+		            to.set(to_key);
+		            
 		            double dist = Double.parseDouble((String)obj.get("distance"));
-		            Edge e = new Edge(from,to, dist,0);
+		            e.set(from,to, dist,0);
+		            
 		            if(!g.containsNode(from)) {
 		            	g.addNode(from,lookup.get(from_key));
 		            }
 		            g.addEdge(e);	
+		            //System.gc(); //call garbage collector
 	        	}
 	        		
 			}	       

@@ -4,5 +4,6 @@ public class Node<T>{
 	private T val;
 	public Node(T val)  {this.val = val;}
 	public T getVal() { return this.val;  }
+	public void set(T val) {this.val = val;}
 
 }

@@ -29,7 +29,6 @@ public class PathifyController {
 	@PostConstruct
     public void init() throws FileNotFoundException, IOException, ParseException {
 		Parser.getLookup();
-
     }
 	
 	@GetMapping("/")
@@ -63,7 +62,7 @@ public class PathifyController {
 	 * @return
 	 */
 	@CrossOrigin
-	@PostMapping("/test")
+	@PostMapping("/path")
 	public ArrayList<Map<String,Double>> testPost(@RequestBody Map<String,Double>[] payload) {
 		ArrayList<Map<String,Double>> response = new ArrayList<Map<String,Double>>();
 		for(int i = 1; i < payload.length; i++) { //first one is source, start from second

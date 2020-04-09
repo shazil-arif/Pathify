@@ -29,7 +29,8 @@ public class WeightedDiGraph{
 	
 	//check if node exists in graph with an existing adjacency list
 	public boolean containsNode(Node<Integer> v) {
-		return adj.keySet().contains(v.getVal());
+		//return adj.keySet().contains(v.getVal());
+		return adj.get(v.getVal())!=null;
 	}
 	
 	

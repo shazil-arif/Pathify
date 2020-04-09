@@ -25,8 +25,12 @@ public class Edge implements Comparable<Edge>{
 		return dest;
 	}
 	
-	public int getTime() {
-		return time;
+	public void set(Node<Integer> source, Node<Integer> destination, double weight, int time) {
+		this.src = source;
+		this.dest = destination;
+		this.weight = weight;
+		this.time = time;
+		
 	}
 	
 	@Override
