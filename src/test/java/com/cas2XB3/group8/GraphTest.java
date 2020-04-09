@@ -8,7 +8,8 @@ class GraphTest {
 
 	@Test
 	void test() {
-		fail("Not yet implemented");
+		DataController d = new DataController();
+		d.viewGraph();
 	}
 
 }

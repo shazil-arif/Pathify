@@ -10,7 +10,7 @@ public class DataController {
     private DataView view;
   
 
-    private DataController() { 
+    public DataController() { 
     	this.graph_model = new Graph();
     	this.view = new DataView();
     } 

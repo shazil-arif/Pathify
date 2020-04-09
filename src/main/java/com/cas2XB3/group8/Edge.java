@@ -1,27 +1,27 @@
 package com.cas2XB3.group8;
 
 public class Edge implements Comparable<Edge>{
-	int src;
-	int dest;
-	int weight;
+	Node<Integer> src;
+	Node<Integer> dest;
+	double weight;
 	int time;
 	
-	public Edge(int source, int destination, int weight, int time) {
+	public Edge(Node<Integer> source, Node<Integer> destination, double weight, int time) {
 		this.src = source;
 		this.dest = destination;
 		this.weight = weight;
 		this.time = time;
 	}
 	
-	public int getWeight() {
+	public double getWeight() {
 		return weight;
 	}
 	
-	public int getSrc() {
+	public Node<Integer> from() {
 		return src;
 	}
 	
-	public int getDest() {
+	public Node<Integer> to(){
 		return dest;
 	}
 	
