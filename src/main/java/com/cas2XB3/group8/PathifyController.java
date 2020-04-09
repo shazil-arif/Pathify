@@ -29,6 +29,7 @@ public class PathifyController {
 	@PostConstruct
     public void init() throws FileNotFoundException, IOException, ParseException {
 		Parser.getLookup();
+		g = Parser.getGraph();
     }
 	
 	@GetMapping("/")
@@ -44,7 +45,6 @@ public class PathifyController {
 	
 	@GetMapping("/load")
 	public String load() throws FileNotFoundException, IOException, ParseException {
-		g = Parser.getGraph();
 		return "Loaded Successfully";
 	}
 	

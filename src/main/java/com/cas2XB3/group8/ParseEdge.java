@@ -5,9 +5,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.lang.StringBuilder;
- 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class ParseEdge
@@ -26,12 +23,13 @@ public class ParseEdge
 
     }
     
-    public static void readRoads() throws IOException {
+    @SuppressWarnings("unchecked")
+	public static void readRoads() throws IOException {
         JSONObject jsonObject = new JSONObject();
         PrintStream fileStream = new PrintStream(jsonfile);
         fileStream.println("[");
-		File distdata = new File("data/USA-road-d.FLA.gr");
-        File timedata = new File("data/USA-road-t.FLA.gr");
+		File distdata = new File("data/USA-road-d.COL.gr");
+        File timedata = new File("data/USA-road-t.COL.gr");
         
         try (BufferedReader br = new BufferedReader(new FileReader(distdata))) {
             try(BufferedReader br2 = new BufferedReader(new FileReader(timedata))) { 
@@ -61,6 +59,9 @@ public class ParseEdge
 
 	}
 
+    public static int getLineCount() {
+    	return line_count;
+    }
 
 
     public static void main( String[] args ) throws IOException
