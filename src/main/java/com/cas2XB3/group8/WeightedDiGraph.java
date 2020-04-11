@@ -1,66 +1,85 @@
+/**
+ * @brief WeightedDiGraph is a module to represent a edge weighted directed graph
+ * @author Shazil Arif
+ * @date April 10th 2020
+ * @file WeightedDiGraph.java
+ */
 package com.cas2XB3.group8;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-/*
- * @brief represents a WeightedDiGraph 
+/**
+ * @brief This module represents a edge Weighted directed graph
  */
 public class WeightedDiGraph{
 	
 	private Map<Integer,Pair> adj;
-	private int num_edges;
 	
-	public WeightedDiGraph() {
-		num_edges = 0;
-		adj = new HashMap<Integer,Pair>();
-	}
+	/**
+	 * @brief WeightedDiGraph constructor
+	 */
+	public WeightedDiGraph() { adj = new HashMap<Integer,Pair>(); }
 	
 	
-	//add an edge in the graph
+	/**
+	 * @brief Add an edge to the weighted diGraph
+	 * @param e The edge To add
+	 */
 	public void addEdge(Edge e) {
 		if(!containsNode(new Node<Integer>(e.from()))) throw new IllegalArgumentException("The node the edge comes from does not exist");
 		adj.get(e.from()).addEdge(e);
-		num_edges++;
 	}
 	
 	
-	//check if node exists in graph with an existing adjacency list
+	/**
+	 * @brief Check if node exists in graph with an existing adjacency list
+	 * @param v The Node to check for
+	 * @return True if the node is contained, false otherwise
+	 */
 	public boolean containsNode(Node<Integer> v) {
-		//return adj.keySet().contains(v.getVal());
 		return adj.get(v.getVal())!=null;
 	}
 	
 	
-	//add node
+	/**
+	 * @brief Adding a Node to the edge
+	 * @param v The Node ID to add
+	 * @param coord The coordinates of the Node
+	 */
 	public void addNode(int v, Coordinates coord) {
 		Pair p = new Pair(coord);
 		adj.put(v, p);	
 	}
 	
-	//get the adjacency list/ which is a list of edges for a give node
+	/**
+	 * @brief Get the adjacency list/ which is a list of edges for a give node
+	 * @param v The node
+	 * @return
+	 */
 	public ArrayList<Edge> getEdgeList(Node<Integer> v){
 		return adj.get(v.getVal()).getEdgeList();
 	}
 	
+	
+	/**
+	 * @brief Gets the coordinates of a node
+	 * @param v The node to get the coordinates for
+	 * @return Coordinates of the node
+	 */
 	public Coordinates getNodeCoord(Node<Integer> v) {
 		return adj.get(v.getVal()).getCoord();
 	}
 	
-	//return a list of all nodes in the graph
-//	public ArrayList<Node<Integer>> getNodeList(){
-//		ArrayList<Node<String>> temp =  new ArrayList<Node<String>>();
-//		for(String item : adj.keySet()) {
-//			temp.add(new Node<String>(item));
-//		}
-//		return temp;
-//	}
-	
-	//get number of nodes in graph, which is just size of adj list
-	
+	/**
+	 * @brief Get the closest node to a location given its coordinates
+	 * @details Iterates through all nodes and linearly finds the node with minimum distance to the input coordinates
+	 * @param coord The coordinates to check for
+	 * @return Returns the node that is closest Node
+	 */
 	public Node<Integer> getClosestNode(Coordinates coord){
-		Map<Integer,Coordinates> m = Parser.getMapping();
+		Map<Integer,Coordinates> m = Parser.getLookUp();
 		int src = 0;
 		double minDist = Double.POSITIVE_INFINITY;
 		for(int key : m.keySet()) {
@@ -73,9 +92,11 @@ public class WeightedDiGraph{
 		return new Node<Integer>(src);
 		
 	}
-	public int getNumNodes() { return adj.size(); }
 	
-	public int getNumEdges() { return num_edges; }
-		
+	/**
+	 * @brief Gets the number of nodes in the graph
+	 * @return The number of nodes
+	 */
+	public int getNumNodes() { return adj.size(); }		
 }
 

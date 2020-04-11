@@ -1,64 +1,43 @@
+/**
+ * @brief Parser is a module to read the graph database
+ * @file Parser.java
+ * @author Shazil Arif
+ * @date April 10th 2020
+ */
 package com.cas2XB3.group8;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.PrintStream;
-
 import java.io.IOException;
-import java.lang.StringBuilder;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 
+
+/**
+ * @brief Parser modules reads in the graph database
+ */
 public class Parser {
     private static Map<Integer,Coordinates> lookup = new HashMap<Integer,Coordinates>();
-    
-    public static void main(String[] args) {
-		WeightedDiGraph g;
-    	try {
-			g = getGraph();
-			Node<Integer> n = new Node<Integer>(1);
-			ArrayList<Edge> l = g.getEdgeList(n);
-//			for(Edge e : l) {
-//				System.out.println(g.getNodeCoord(e.to()).getX() + " " + g.getNodeCoord(e.to()).getY());
-//				System.out.println(e.from().getVal() + "->" + e.to().getVal());
-//			}
-	    	//test(g);
-			Node<Integer> k = g.getClosestNode(new Coordinates(25.7742658, -80.1936589));
-	    	System.out.println(k.getVal());
-		} catch (IOException | org.json.simple.parser.ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    }
-    
-//    public static void test(WeightedDiGraph g) {
-//    	Dijkstra d = new Dijkstra(g,new Coordinates(30.620944, -87.398204)); //node id 1
-//    	ArrayList<Edge> k = d.pathTo(new Coordinates(30.618002, -87.397805)); //node id 176
-//    	for(Edge e : k) {
-//			System.out.println(g.getNodeCoord(e.to()).getX() + " " + g.getNodeCoord(e.to()).getY());
-//			System.out.println(e.from().getVal() + "->" + e.to().getVal());
-//		}
-//    }
-
+   
+    /**
+     * Creates the initial graph and initializes the data by reading the files.
+     * @return A WeightedGraph
+     * @throws FileNotFoundException
+     * @throws IOException
+     * @throws org.json.simple.parser.ParseException
+     */
 	public static WeightedDiGraph getGraph() throws FileNotFoundException, IOException, org.json.simple.parser.ParseException {
         WeightedDiGraph g = new WeightedDiGraph();
 	    try {
 	        BufferedReader reader = new BufferedReader(new FileReader("data/edge.json"));
 		    JSONObject obj;
 		    Node<Integer> from = new Node<Integer>(0);
-		    Node<Integer> to = new Node<Integer>(0);
-		    Edge e = new Edge(0,0,0,0);
+		    Edge e;
 		    reader.readLine();
 	        for(String line = reader.readLine(); line != null; line = reader.readLine()) {
 	        	if(!line.equals("]")) {
@@ -71,16 +50,14 @@ public class Parser {
 		            int to_key = Integer.parseInt((String)obj.get("id2"));
 		            
 		            from.set(from_key);
-		            to.set(to_key);
 		            
 		            double dist = Double.parseDouble((String)obj.get("distance"));
-		            e = new Edge(from_key,to_key, dist,0);
+		            e = new Edge(from_key,to_key, dist);
 		            
 		            if(!g.containsNode(from)) {
 		            	g.addNode(from_key,lookup.get(from_key));
 		            }
 		            g.addEdge(e);	
-		            //System.gc(); //call garbage collector
 	        	}
 	        		
 			}	       
@@ -93,7 +70,12 @@ public class Parser {
 	    return g;
 	}
 	
-	public static void getLookup() throws FileNotFoundException, org.json.simple.parser.ParseException {
+	/**
+	 * @brief Reads coordinates data set and adds new nodes and to the lookup by reading the coordinates data
+	 * @throws FileNotFoundException if the dataset is not found
+	 * @throws org.json.simple.parser.ParseException for other issues while parsing/e.g malformed JSON data etc.
+	 */
+	public static void readLookup() throws FileNotFoundException, org.json.simple.parser.ParseException {
 		FileReader fileReader = new FileReader("data/coord.json");
         BufferedReader reader = new BufferedReader(fileReader);
         JSONObject temp;
@@ -103,13 +85,11 @@ public class Parser {
 				if(!line.equals("]")) {
 					if(line.substring(line.length()-1).equals(","))
 						line = line.substring(0,line.length()-1);
-					//System.out.println(line);
 		            temp = (JSONObject) new JSONParser().parse(line);
-//		            double lat = Double.parseDouble((String)temp.get("latitude"));
-//		            double lng = Double.parseDouble((String)temp.get("longitude"));
 		            
-		            double lat = Double.parseDouble((String)temp.get("longitude")); //swap temporarily
-		            double lng = Double.parseDouble((String)temp.get("latitude")); //swap temporarily
+		            double lat = Double.parseDouble((String)temp.get("longitude")); //the dataset provided the data flipped, hence the swap
+		            double lng = Double.parseDouble((String)temp.get("latitude"));  //the dataset provided the data flipped, hence the swap
+		            
 		            lookup.put(Integer.parseInt((String)temp.get("id")), new Coordinates(lat,lng));
 				}
 			}
@@ -120,7 +100,12 @@ public class Parser {
 		}
 		
 	}
-	public static Map<Integer,Coordinates> getMapping(){
+
+	/**
+	 * @brief Get the mapping of nodes to coordinates
+	 * @return The lookup mapping
+	 */
+	public static Map<Integer,Coordinates> getLookUp(){
 		return lookup;
 	}
 

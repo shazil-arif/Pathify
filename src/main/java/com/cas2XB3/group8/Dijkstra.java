@@ -1,55 +1,59 @@
+/**
+ * @brief class Dijkstra calculates shortest paths for a given graph
+ * @author Shazil Arif
+ * @file Coordinates.java
+ * @date April 10th 2020
+ */
 package com.cas2XB3.group8;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
+/**
+ * @brief class Dijkstra calculates shortest paths for a given graph
+ */
 public class Dijkstra {
 	
 	//private variables
 	private Edge[] edgeTo; //maintain shortest path tree
 	private double[] distTo; //main distance of shortest known path
-	private IndexMinPQ<Double> pq; //priority queue for quick retrieval of minimum cost edge
+	private MinPQ pq;
 	
 	/**
 	 * @brief constructor method for class Dijkstra
-	 * @param G the weighted graph to find shortest path tree for
-	 * @param src node to calculate shortest paths from
-	 */
+	 * @param G the weighted graph to find shortest path tree from the source
+	 * @param src the source node to calculate shortest paths from
+	 **/
 	public Dijkstra(WeightedDiGraph G, int src){
-		//System.out.println(src);
+		
 		int V = G.getNumNodes()+1; //number of nodes in input graph
 		edgeTo = new Edge[V];
 		distTo = new double[V];
-		pq = new IndexMinPQ<Double>(V);	
+		pq = new MinPQ(V);	
+
 		
-				
 		//initialize all distances to infinity
-		for(int i = 0; i < V; i++) {
+		for(int i = 0; i < V; i++) 
 			distTo[i] = Double.POSITIVE_INFINITY;
-		}
-		//set distance to source as 0
-		distTo[src] = 0;
 		
-				
+		distTo[src] = 0; 		//set distance to source as 0
+	
+	
 		//find shortest paths
 		pq.insert(src, 0.0);
 		while(!pq.isEmpty()) {
-			//relax every edge
-			relax(G,pq.delMin());			
+			relax(G,pq.deleteMin()); //relax every edge			
 		}
 	}
 	
 	/**
-	 * private helper method, relax edges and update distances and shortest path tree
+	 * @brief private helper method, relax edges and update distances and shortest path tree
 	 * @param G the graph 
 	 * @param node the node to relax edges for
-	 */
+	 **/
 	private void relax(WeightedDiGraph G, int node) {
 		
-		//relax all outgoing edges from parameter node
-		//Node<String> n = new Node<String>(map.get(node));
+		//relax all outgoing edges from node
 		Node<Integer> n = new Node<Integer>(node);
 		for(Edge e : G.getEdgeList(n)) {
 			int to = e.to();
@@ -63,19 +67,26 @@ public class Dijkstra {
 				else pq.insert(to, distTo[to]);
 			}
 						
-			
 		}
 	}
 	
-	public double distanceTo(int v) {
-		return distTo[v];
-	}
+	/**
+	 * @brief method that returns the distance from source to the given vertex
+	 * @param v the given vertex 
+	 * @return the distance from source to the given vertex
+	 **/
+	public double distanceTo(int v) { return distTo[v]; }
 	
-	//get the path to an edge
+	/**
+	 * @brief method that finds the path between the src to the given vertex
+	 * @param v the given vertex 
+	 * @return an array of edges that forms the path between src and the given vertex
+	 **/
 	public ArrayList<Edge> pathTo(int v){
 		ArrayList<Edge> path = new ArrayList<Edge>();
 		
-		/*iteratively traverse the shortest path tree in Edge to
+		/**
+		 * iteratively traverse the shortest path tree in Edge to
 		 * since this backs up to the source, it is reversed. final output has to be reversed
 		 */
 		Edge x = edgeTo[v];

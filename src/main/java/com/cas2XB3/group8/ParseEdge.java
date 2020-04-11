@@ -1,3 +1,9 @@
+/**
+ * @brief ParserEdge is a script to parse the graph database into JSON format
+ * @file ParseEdge.java
+ * @author Madhi
+ * @date April 10th 2020
+ */
 package com.cas2XB3.group8;
 
 import java.io.BufferedReader;
@@ -16,7 +22,6 @@ public class ParseEdge
 	static {
 		try {
 			jsonfile.createNewFile();
-			//printWriter = new PrintWriter(fileWriter);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
