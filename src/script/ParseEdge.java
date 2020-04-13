@@ -16,7 +16,7 @@ import org.json.simple.JSONObject;
 public class ParseEdge
 {
 
-	public static int line_count = 2712798;
+	public static int line_count = 1057066;
 	
     static File jsonfile = new File("data/edge.json");
 	static {

@@ -32,7 +32,7 @@ public class PathifyController {
 	
 	/**
 	 * @brief call the Parser module to read the graph database, @PostConstruct runs this immediately at startup then the Graph is 
-	 * available throughout the lifecycle of the program and does not have to be read for every request
+	 * available throughout the life cycle of the program and does not have to be read for every request
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 * @throws ParseException
@@ -40,7 +40,9 @@ public class PathifyController {
 	@PostConstruct
     public void init() throws FileNotFoundException, IOException, ParseException {
 		Parser.readLookup();
+		Parser.sortLookUp();
 		g = Parser.getGraph();
+		
     }
 	
 	/**
@@ -54,27 +56,63 @@ public class PathifyController {
 	
 	
 	/**
-	 * For post requests in format:
-	 * [
-			{"lat":120, "long":143},
-			{"lat":12.0, "long":15.3},
-			{"lat":52.0, "long":34.3},
-			{"lat":12.3, "long":21.3},
-			{"lat":11.7, "long":133.3}
-		]
 	 * @brief Takes the input destinations and finds a shortest path using the graph.
 	 * @details uses Dijkstras algorithm to calculate the shortest path. Calculates shortest paths between every pair of destinations since we want
 	 * to visit them in order
 	 * @param payload The Map/JSON object of destinations
-	 * @return The path, JSON object containing lat,long points to visit to reach each destination. the same format as the input but for the shortest path.
+	 * @return The path, JSON object containing lat,long points to visit to reach each destination. 
 	 */
 	@CrossOrigin
 	@PostMapping("/path")
-	public ArrayList<Map<String,Double>> testPost(@RequestBody Map<String,Double>[] payload) {
+	public ArrayList<Map<String,ArrayList<Map<String,Double>>>> testPost(@RequestBody Map<String,Double>[] payload) {
 		
-		//response to send back to client
-		ArrayList<Map<String,Double>> response = new ArrayList<Map<String,Double>>();
+		/**
+		 * response to send back to client, looks like:
+		 * [
+		 * 		{"points": [
+		 *				{"lat": 10.5,
+		 *				"long": 1.56	
+		 *				},
+		 *
+		 *				{"lat": 10.5,
+		 *				"long": 1.56	
+		 *				},
+		 *			]
+		 *		}
+		 * 
+		 *	 	{"distance": [
+		 *				{"lat": 10.5,
+		 *				"long": 1.56,
+		 *				"distance": 12.5
+		 *				},
+		 *
+		 *				{"lat": 10.5,
+		 *				"long": 1.56,
+		 *				"distance": 13.5
+		 *				},
+		 *			]
+		 *		}
+		 * ]
+		 * 
+		 * Note: distances are in km
+		 */
 		
+		ArrayList<Map<String,ArrayList<Map<String,Double>>>> response = new ArrayList<Map<String,ArrayList<Map<String,Double>>>>();
+		
+		Map<String,ArrayList<Map<String,Double>>> points = new HashMap<String,ArrayList<Map<String,Double>>>();
+		
+		points.put("points", new ArrayList<Map<String,Double>>());
+		
+		response.add(points);
+		
+		
+		Map<String,ArrayList<Map<String,Double>>> dist = new HashMap<String,ArrayList<Map<String,Double>>>();
+		
+		dist.put("distances", new ArrayList<Map<String,Double>>());
+		
+		response.add(dist);
+		
+
 		
 		/**
 		 * main idea is to calculate shortest path from first destination to everywhere else and then get the path to 
@@ -96,10 +134,6 @@ public class PathifyController {
 			Map<String,Double> temp = new HashMap<String,Double>();
 			Coordinates location = g.getNodeCoord(g.getClosestNode(source));
 			
-			//add the source to the path
-			temp.put("lat",location.getX());
-			temp.put("long",location.getY());
-			response.add(temp);
 			
 			Coordinates dest_coords = new Coordinates(payload[i].get("lat"),payload[i].get("long"));
 			int dest = g.getClosestNode(dest_coords).getVal();
@@ -108,11 +142,20 @@ public class PathifyController {
 			ArrayList<Edge> path = d.pathTo(dest);
 			for(Edge e : path) {
 				temp = new HashMap<String,Double>();
-				location = g.getNodeCoord(new Node<Integer>(e.to()));
+				location = g.getNodeCoord(new Node<Integer>(e.from()));
 				temp.put("lat",location.getX());
 				temp.put("long",location.getY());
-				response.add(temp);
+				response.get(0).get("points").add(temp);
 			}
+			
+			//add destination with its distance from the source
+			temp = new HashMap<String,Double>();
+			location = g.getNodeCoord(new Node<Integer>(dest));
+			temp.put("lat",location.getX());
+			temp.put("long",location.getY());
+			temp.put("distance",d.distanceTo(dest)/10000);
+			response.get(1).get("distances").add(temp);
+			
 		}
 		return response;
 	}

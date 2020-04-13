@@ -16,6 +16,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class PathifyApplication {
 
+	/**
+	 * @brief main runner for the spring boot application
+	 * @param args command line arguments (if any)
+	 */
 	public static void main(String[] args) {
 		SpringApplication.run(PathifyController.class, args);
 	}

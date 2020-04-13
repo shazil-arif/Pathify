@@ -10,6 +10,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,7 +27,7 @@ public class Parser {
     private static Map<Integer,Coordinates> lookup = new HashMap<Integer,Coordinates>();
    
     /**
-     * Creates the initial graph and initializes the data by reading the files.
+     * @brief Creates the initial graph and initializes the data by reading the files
      * @return A WeightedGraph
      * @throws FileNotFoundException
      * @throws IOException
@@ -72,10 +74,10 @@ public class Parser {
 	
 	/**
 	 * @brief Reads coordinates data set and adds new nodes and to the lookup by reading the coordinates data
-	 * @throws FileNotFoundException if the dataset is not found
 	 * @throws org.json.simple.parser.ParseException for other issues while parsing/e.g malformed JSON data etc.
+	 * @throws IOException 
 	 */
-	public static void readLookup() throws FileNotFoundException, org.json.simple.parser.ParseException {
+	public static void readLookup() throws org.json.simple.parser.ParseException, IOException {
 		FileReader fileReader = new FileReader("data/coord.json");
         BufferedReader reader = new BufferedReader(fileReader);
         JSONObject temp;
@@ -97,6 +99,7 @@ public class Parser {
 			reader.close();
 		} catch (IOException e) {
 			e.printStackTrace();
+			throw new IOException();
 		}
 		
 	}
@@ -108,5 +111,15 @@ public class Parser {
 	public static Map<Integer,Coordinates> getLookUp(){
 		return lookup;
 	}
-
+	
+	/**
+	 * @brief sorted the lookup table of node ID to coordinates
+	 */
+	public static void sortLookUp() {
+		ArrayList<Integer> temp = new ArrayList<Integer>(lookup.keySet());
+		QuickSort.sort(temp);
+		for(int key : temp) {
+			lookup.put(key,lookup.get(key));
+		}		
+	}
 }

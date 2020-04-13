@@ -13,10 +13,9 @@ package com.cas2XB3.group8;
 public class Edge{
 	
 	// State variables
-	int src;
-	int dest;
-	double weight;
-	int time;
+	private int src;
+	private int dest;
+	private double weight;
 	
 	/**
 	 * @brief Constructor for edge

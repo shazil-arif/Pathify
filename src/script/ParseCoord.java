@@ -17,7 +17,7 @@ import org.json.simple.JSONObject;
 public class ParseCoord
 {
 
-	public static int line_count = 1070376;
+	public static int line_count = 435666;
 	
     static File jsonfile = new File("data/coord.json");
 	static {
@@ -64,6 +64,7 @@ public class ParseCoord
             fileStream.println();
             fileStream.println("]");
             fileStream.close();
+            System.out.println("Line count: " + line_count);
         }
 	}
 

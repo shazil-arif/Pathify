@@ -26,6 +26,7 @@ public class WeightedDiGraph{
 	/**
 	 * @brief Add an edge to the weighted diGraph
 	 * @param e The edge To add
+	 * @throws Illegal Argument Exception
 	 */
 	public void addEdge(Edge e) {
 		if(!containsNode(new Node<Integer>(e.from()))) throw new IllegalArgumentException("The node the edge comes from does not exist");

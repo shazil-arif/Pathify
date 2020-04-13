@@ -8,9 +8,9 @@ package com.cas2XB3.group8;
 
 
 /**
- * @brief Coordinates is an object to repesent a latitude, longitude position
+ * @brief Coordinates is an object to represent a latitude, longitude position
  */
-public class Coordinates {
+public class Coordinates implements Comparable<Coordinates> {
 	private Double xVal;
 	private Double yVal;
 
@@ -68,6 +68,12 @@ public class Coordinates {
 
         return  Math.round(distance * 100.0) / 100.0;
 
+	}
+
+	@Override
+	public int compareTo(Coordinates o) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 	
