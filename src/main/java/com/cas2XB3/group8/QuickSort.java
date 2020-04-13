@@ -58,11 +58,11 @@ public class QuickSort {
             // check if pointers cross
             if (i >= j) break;
 
-            exch(a, i, j);
+            swap(a, i, j);
         }
 
         // put partitioning item v at a[j]
-        exch(a, lo, j);
+        swap(a, lo, j);
 
         return j;
     }
@@ -85,10 +85,10 @@ public class QuickSort {
      * @param i Index of first item
      * @param j Index of second item
      */
-    private static void exch(ArrayList<Integer> a, int i, int j) {
-        int swap = a.get(i);
+    private static void swap(ArrayList<Integer> a, int i, int j) {
+        int temp = a.get(i);
         a.set(i, a.get(j));
-        a.set(j, swap);
+        a.set(j, temp);
     }
 
 }

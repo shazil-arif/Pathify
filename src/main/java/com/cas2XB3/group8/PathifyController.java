@@ -63,7 +63,7 @@ public class PathifyController {
 	 * @return The path, JSON object containing lat,long points to visit to reach each destination. 
 	 */
 	@CrossOrigin
-	@PostMapping("/path")
+	@PostMapping("/api/path")
 	public ArrayList<Map<String,ArrayList<Map<String,Double>>>> testPost(@RequestBody Map<String,Double>[] payload) {
 		
 		/**
@@ -119,7 +119,7 @@ public class PathifyController {
 		 * second destination. Then calculate shortest paths from second destination to everywhere else and get path to
 		 * third destination and repeat this for all pairs of destinations in the payload
 		 */
-		
+				
 		for(int i = 1; i < payload.length; i++) { //first one is source, start from second
 			
 			/**
@@ -153,7 +153,7 @@ public class PathifyController {
 			location = g.getNodeCoord(new Node<Integer>(dest));
 			temp.put("lat",location.getX());
 			temp.put("long",location.getY());
-			temp.put("distance",d.distanceTo(dest)/10000);
+			temp.put("distance",d.distanceTo(dest)/10000); //distances in dataset are 10^5 times a kilometre
 			response.get(1).get("distances").add(temp);
 			
 		}
