@@ -10,7 +10,7 @@ package com.cas2XB3.group8;
 /**
  * @brief Coordinates is an object to represent a latitude, longitude position
  */
-public class Coordinates implements Comparable<Coordinates> {
+public class Coordinates {
 	private Double xVal;
 	private Double yVal;
 
@@ -68,13 +68,5 @@ public class Coordinates implements Comparable<Coordinates> {
 
         return  Math.round(distance * 100.0) / 100.0;
 
-	}
-
-	@Override
-	public int compareTo(Coordinates o) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
-	
+	}	
 }

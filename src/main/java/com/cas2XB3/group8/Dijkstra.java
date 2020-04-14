@@ -96,29 +96,6 @@ public class Dijkstra {
 		}
 		Collections.reverse(path);
 		return path;
-	}
-	
-	public static void main(String[] args) {
-		WeightedDiGraph g = new WeightedDiGraph();
-		g.addNode(1, new Coordinates(1,1));
-		g.addNode(2, new Coordinates(1,1));
-		g.addNode(3, new Coordinates(1,1));
-		g.addNode(4, new Coordinates(1,1));
-		g.addNode(5, new Coordinates(1,1));
-		
-		g.addEdge(new Edge(1,2,8));
-		g.addEdge(new Edge(1,3,8));
-		g.addEdge(new Edge(3,5,2));
-		g.addEdge(new Edge(2,4,1));
-		g.addEdge(new Edge(4,5,0.1));
-		Dijkstra d = new Dijkstra(g,1);
-		ArrayList<Edge> p = d.pathTo(5);
-		for(Edge e : p) {
-			System.out.println(e.from());
-		}
-
-
-	}
-	
+	}	
 }
 

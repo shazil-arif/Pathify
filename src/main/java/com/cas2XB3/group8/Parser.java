@@ -11,7 +11,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -118,8 +117,7 @@ public class Parser {
 	public static void sortLookUp() {
 		ArrayList<Integer> temp = new ArrayList<Integer>(lookup.keySet());
 		QuickSort.sort(temp);
-		for(int key : temp) {
+		for(int key : temp) 
 			lookup.put(key,lookup.get(key));
-		}		
 	}
 }

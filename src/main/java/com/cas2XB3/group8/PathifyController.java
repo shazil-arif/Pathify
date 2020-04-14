@@ -141,19 +141,24 @@ public class PathifyController {
 			//get the path to destination and add the nodes to visit in order to the response 
 			ArrayList<Edge> path = d.pathTo(dest);
 			for(Edge e : path) {
+				
 				temp = new HashMap<String,Double>();
 				location = g.getNodeCoord(new Node<Integer>(e.from()));
+				
 				temp.put("lat",location.getX());
 				temp.put("long",location.getY());
+				
 				response.get(0).get("points").add(temp);
 			}
 			
 			//add destination with its distance from the source
 			temp = new HashMap<String,Double>();
 			location = g.getNodeCoord(new Node<Integer>(dest));
+			
 			temp.put("lat",location.getX());
 			temp.put("long",location.getY());
 			temp.put("distance",d.distanceTo(dest)/10000); //distances in dataset are 10^5 times a kilometre
+			
 			response.get(1).get("distances").add(temp);
 			
 		}
