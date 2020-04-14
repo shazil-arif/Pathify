@@ -1,2 +1,0 @@
-# Pathify
-Route Planning Optimized
